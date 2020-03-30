@@ -1,0 +1,87 @@
+- name: install epel repository
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - epel-release
+
+- name: Ensure necessary directories created
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+  - "/root/bin"
+  - "/usr/local/bin"
+  - "/usr/local/src"
+
+- name: install needed rpms
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - bc
+  - bind-utils
+  - cronie
+  - dbus
+  - dstat
+  - fprintd-pam
+  - gcc-c++
+  - git
+  - glances
+  - htop
+  - iftop
+  - ipa-client
+  - iperf
+  - jq
+  - links
+  - lm_sensors
+  - logrotate
+  - lsof
+  - lsscsi
+  - mailx
+  - man-pages
+  - mlocate
+  - mtr
+  - MySQL-python
+  - net-tools
+  - nmon
+  - ntp
+  - oddjob
+  - oddjob-mkhomedir
+  - openssl
+  - parted
+  - perl-App-cpanminus
+  - pciutils
+  - python-setuptools
+  - rsync
+  - rsyslog
+  - screen
+  - smem
+  - sssd-common
+  - sudo
+  - sysstat
+  - tcpdump
+  - time
+  - traceroute
+  - unzip
+  - wget
+  - vim-enhanced
+  - vnstat
+  - xinetd
+  - yum-cron
+  - yum-utils
+  - zsh
+  - nmap-ncat
+  - python2-pip
+  - openssh
+  - openssh-clients
+  - openssh-server
+
+- name: make sure sshd is running
+  service:
+    name: "sshd"
+    state: started
+    enabled: yes
